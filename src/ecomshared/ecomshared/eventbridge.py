@@ -1,3 +1,8 @@
+"""
+EventBridge helpers for Lambda functions
+"""
+
+
 from datetime import datetime
 import json
 from boto3.dynamodb.types import TypeDeserializer

@@ -8,7 +8,7 @@ setup(
     author="Amazon Web Services",
     install_requires=["boto3"],
     license="MIT-0",
-    name="ecom",
+    name="ecomshared",
     packages=find_packages(),
     setup_requires=["pytest-runner"],
     test_suite="tests",
