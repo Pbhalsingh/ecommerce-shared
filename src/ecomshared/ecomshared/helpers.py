@@ -26,7 +26,9 @@ class Encoder(json.JSONEncoder):
         return super(Encoder, self).default(o)
 
 def get_source(event: dict):
-    if 'pathParameters' in event and 'proxy' in event['pathParameters']:
+    if 'pathParameters' in event and  event['pathParameters'] is not None and 'proxy' in event['pathParameters']:
+        return 'api_gateway_aws_proxy'
+    elif 'httpMethod' in event and  event['httpMethod'] and event['httpMethod'] in ["GET","POST","PUT","DELETE","PATCH"]:
         return 'api_gateway_aws_proxy'
     elif 'Records' in event and len(event['Records']) > 0 and 'eventSource' in event['Records'][0] and event['Records'][0]['eventSource'] == 'aws:s3':
         return 's3'
