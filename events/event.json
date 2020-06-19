@@ -1,0 +1,52 @@
+ {
+    "resource": "/backend/getProducts",
+    "path": "/backend/getProducts",
+    "httpMethod": "GET",
+    "headers": null,
+    "multiValueHeaders": null,
+    "queryStringParameters": {
+        "productIds": "dc63fd75-b79c-43b9-8c80-ea8bb78eb20c,ffdf801f-6381-447b-8a7d-ee4067eb6cd7,88cec519-a6ec-454a-b76a-17e22d73317e"
+    },
+    "multiValueQueryStringParameters": {
+        "productIds": [
+            "1,2,3"
+        ]
+    },
+    "pathParameters": null,
+    "stageVariables": null,
+    "requestContext": {
+        "resourceId": "m33r1p",
+        "resourcePath": "/backend/getProducts",
+        "operationName": "backendGetProducts",
+        "httpMethod": "GET",
+        "extendedRequestId": "OORk5FMaoAMF4ZQ=",
+        "requestTime": "16/Jun/2020:13:29:54 +0000",
+        "path": "/backend/getProducts",
+        "accountId": "367136993533",
+        "protocol": "HTTP/1.1",
+        "stage": "test-invoke-stage",
+        "domainPrefix": "testPrefix",
+        "requestTimeEpoch": 1592314194470,
+        "requestId": "c7c3c810-e9d7-4546-b2f2-ecceacd2af76",
+        "identity": {
+            "cognitoIdentityPoolId": null,
+            "cognitoIdentityId": null,
+            "apiKey": "test-invoke-api-key",
+            "principalOrgId": null,
+            "cognitoAuthenticationType": null,
+            "userArn": "arn:aws:iam::367136993533:user/ecommdev",
+            "apiKeyId": "test-invoke-api-key-id",
+            "userAgent": "aws-internal/3 aws-sdk-java/1.11.783 Linux/4.9.184-0.1.ac.235.83.329.metal1.x86_64 OpenJDK_64-Bit_Server_VM/25.252-b09 java/1.8.0_252 vendor/Oracle_Corporation",
+            "accountId": "367136993533",
+            "caller": "AIDAVK6YR6D6TGJ2FYGR2",
+            "sourceIp": "test-invoke-source-ip",
+            "accessKey": "ASIAVK6YR6D6SKLCG2NV",
+            "cognitoAuthenticationProvider": null,
+            "user": "AIDAVK6YR6D6TGJ2FYGR2"
+        },
+        "domainName": "testPrefix.testDomainName",
+        "apiId": "oni4k79my8"
+    },
+    "body": null,
+    "isBase64Encoded": false
+}
