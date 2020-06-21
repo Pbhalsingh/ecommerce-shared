@@ -43,7 +43,7 @@ def listener(request):
             )
         )["Parameter"]["Value"]
 
-        print("TIMEOUT", timeout)
+        print("queue_url", queue_url)
         messages = []
         start_time = time.time()
         while time.time() < start_time + timeout:

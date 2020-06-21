@@ -5,10 +5,6 @@ from botocore import stub
 import boto3
 import pytest
 
-def sum(a:int,d:int):
-    return a + d
-
-
 def compare_dict(a: dict, b: dict):
     """
     Compare two dicts
