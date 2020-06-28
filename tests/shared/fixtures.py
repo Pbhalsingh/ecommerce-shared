@@ -116,8 +116,7 @@ def get_order(get_product):
                 get_product() for _ in range(random.randrange(2, 8))
             ],
             "address": address or {
-                "name": "John Doe",
-                "companyName": "Test Co",
+                "name": "Parth Urvi",
                 "streetAddress": "{} Test St".format(random.randint(10, 100)),
                 "postCode": str((random.randrange(10**4, 10**5))),
                 "city": "Test City",
@@ -125,8 +124,13 @@ def get_order(get_product):
                 "country": "".join(random.choices(string.ascii_uppercase, k=2)),
                 "phoneNumber": "+{}".format(random.randrange(10**9, 10**10))
             },
-            "paymentToken": str(uuid.uuid4()),
-            "deliveryPrice": random.randint(0, 1000)
+            "paymentDetail": {
+                "name" : "Prashant Test",
+                "cardNumber"  : 4111111111111111,
+                "expDate" : "4/22",
+                "cvc" : 100
+            },
+            "deliveryPrice": random.randint(0, 50)
         }
 
         # Insert products quantities and calculate total cost of the order
