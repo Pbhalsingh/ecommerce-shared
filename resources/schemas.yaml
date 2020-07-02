@@ -29,6 +29,28 @@ Address:
     phoneNumber:
       type: string
 
+PaymentDetial:
+  type: object
+  description: Representation of a CredirCard Payment.
+  required:
+    - name
+    - cardNumber
+    - expDate
+    - cvc
+  properties:
+    name:
+      type: string
+      description: Name on Card.
+    cardNumber:
+      type: integer
+      description: Card Number
+    expDate:
+      type: string
+      description: exp on Card.
+    cvc:
+      type: integer
+      description: CVC on Card
+
 EventBridgeHeader:
   type: object
   description: Headers for EventBridge schema definitions.
@@ -69,6 +91,8 @@ Order:
   type: object
   description: Representation of a single order.
   required:
+    - PK
+    - SK
     - orderId
     - userId
     - createdDate
@@ -78,6 +102,14 @@ Order:
     - deliveryPrice
     - total
   properties:
+    PK:
+      type: string
+      format: uuid
+      description: Unique identifier for the order.
+      example: d5e32d1d-552f-497e-babd-f7946ca35c78
+    SK:
+      type: string
+      description: ORDER with OrderId.
     orderId:
       type: string
       format: uuid
@@ -112,9 +144,6 @@ Order:
       type: integer
       description: Cost of delivery for the order.
       minimum: 0
-    paymentToken:
-      type: string
-      description: Payment token to process payment for the order.
     total:
       type: integer
       description: Total cost for the order.
@@ -236,3 +265,5 @@ User:
       format: date-time
       description: Product last modification date.
       example: "2020-01-23T10:53:49.131052"
+  
+  
