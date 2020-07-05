@@ -126,7 +126,7 @@ def get_order(get_product):
             },
             "paymentDetail": {
                 "name" : "Prashant Test",
-                "cardNumber"  : 4111111111111111,
+                "cardNumber"  : 41111,
                 "expDate" : "4/22",
                 "cvc" : 100
             },
