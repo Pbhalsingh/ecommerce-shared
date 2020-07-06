@@ -42,7 +42,9 @@ Resources:
     Type: AWS::Events::Rule
     Properties:
       EventBusName: !Ref EventBusName
-      EventPattern: !Sub '{"source": ["ecommerce.${ServiceName}"]}'
+      EventPattern: !Sub '{"source": [
+                          { "prefix": "ecommerce.${ServiceName}" }
+                          ]}'
       State: ENABLED
       Targets:
         - Id: ListenerQueue
