@@ -1,0 +1,12 @@
+version = 0.1
+[default]
+[default.deploy]
+[default.deploy.parameters]
+stack_name = "ecommerce-shared-stack"
+s3_bucket = "ecommerce-build-bucket"
+s3_prefix = "ecommerce-shared-stack"
+region = "us-east-1"
+confirm_changeset = true
+capabilities = "CAPABILITY_IAM"
+parameter_overrides = "Environment=\"test\""
+

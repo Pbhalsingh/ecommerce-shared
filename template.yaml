@@ -1,0 +1,40 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Transform: 'AWS::Serverless-2016-10-31'
+
+Parameters:
+  Environment:
+    Type: String
+    Default: test
+
+
+Resources:
+  #############
+  # Lambda Layer  #
+  #############
+  ecommerceLambdaLayer:
+    Type: AWS::Serverless::LayerVersion
+    Properties:
+        LayerName: ecommerceLambdaLayer
+        Description: My Lambda Layer with boto3,aws-lambda-powertools,aws auth and json schema
+        ContentUri: lambda-layers/ecommerceLambdaLayer.zip
+        CompatibleRuntimes:
+            - python3.6
+            - python3.7
+            - python3.8
+        LicenseInfo: MIT
+        RetentionPolicy: Retain
+
+  LambdaLayerParameter:
+    Type: AWS::SSM::Parameter
+    Properties:
+      Name: !Sub /ecommerce/${Environment}/platform/lambda-layer/name
+      Type: String
+      Value: !Ref ecommerceLambdaLayer
+
+Outputs:
+  ecommerceLambdaLayerARN:
+    Value: !Ref ecommerceLambdaLayer
+    Description: ecommerceLambdaLayer ARN
+    Export:
+      Name: 
+        Fn::Sub: "${AWS::StackName}-ecommerceLambdaLayer"
