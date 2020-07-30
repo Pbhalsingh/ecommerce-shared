@@ -216,5 +216,23 @@ def truncateTable(tableName):
     print(f"Deleted {counter}")
 
 
+def get_inventory(productId):
+
+
+    response = table.get_item(
+        Key={
+            'PK': "INVENTORY#{}".format(productId),
+            'SK':  "INVENTORY"
+        }
+    )
+
+    inventory = response['Item'] if  "Item" in response else None
+
+    if  inventory is None :
+        raise Exception("ProductId Not an Inventory Item ")
+
+    return inventory
+
+
 
 

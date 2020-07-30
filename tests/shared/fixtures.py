@@ -191,3 +191,20 @@ def get_product():
         }
 
     return _get_product
+
+@pytest.fixture(scope="module")
+def get_inventory(product):
+
+    ship_delay = random.choices(population=[[0,0],[0,1],[1,1],[1,2],[2,2],[2,3],[3,3]],weights=[0.5, 0.2,0.1,0.05,0.05,0.05,0.05],k=7)
+    qty = random.randrange(200, 750)
+    min_alert = qty//5
+    return {
+                "productId" :product["productId"],
+                "name" :product["name"],
+                "category":product["category"],
+                "qty":qty,
+                "min_alert_qty" :min_alert,
+                "ship_delay_reg" :ship_delay[0][1],
+                "ship_delay_prime" :ship_delay[0][0],
+                "registory_ref_no" :"CHALLAN-{}".format(uuid.uuid4()),
+            }
