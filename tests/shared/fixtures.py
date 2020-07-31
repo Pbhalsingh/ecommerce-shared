@@ -9,10 +9,16 @@ import uuid
 from aws_requests_auth.boto_utils import BotoAWSRequestsAuth
 import boto3
 import pytest
+from .helpers import getParameter
+from boto3.dynamodb.conditions import Key,Attr
+
 
 
 sqs = boto3.client("sqs")
 ssm = boto3.client("ssm")
+warehouse_table = getParameter("/ecommerce/{}/warehouse/table/name".format("test"))
+product_table = getParameter("/ecommerce/{}/products/table/name".format("test"))
+REQ_QTY = 10
 
 
 @pytest.fixture
@@ -195,16 +201,135 @@ def get_product():
 @pytest.fixture(scope="module")
 def get_inventory(product):
 
-    ship_delay = random.choices(population=[[0,0],[0,1],[1,1],[1,2],[2,2],[2,3],[3,3]],weights=[0.5, 0.2,0.1,0.05,0.05,0.05,0.05],k=7)
-    qty = random.randrange(200, 750)
-    min_alert = qty//5
+    def _get_inventory(product):
+
+        ship_delay = random.choices(population=[[0,0],[0,1],[1,1],[1,2],[2,2],[2,3],[3,3]],weights=[0.5, 0.2,0.1,0.05,0.05,0.05,0.05],k=7)
+        qty = random.randrange(200, 750)
+        min_alert = qty//5
+        return {
+                    "productId" :product["productId"],
+                    "name" :product["name"],
+                    "category":product["category"],
+                    "qty":qty,
+                    "min_alert_qty" :min_alert,
+                    "ship_delay_reg" :ship_delay[0][1],
+                    "ship_delay_prime" :ship_delay[0][0],
+                    "registory_ref_no" :"CHALLAN-{}".format(uuid.uuid4()),
+                }
+    
+    return _get_inventory
+
+
+
+@pytest.fixture(scope="module")    
+def products_db( get_product):
+
+    table =  boto3.resource("dynamodb").Table(product_table) # pylint: disable=no-member
+
+    products = [get_product() for i in range(2)]
+
+    with table.batch_writer() as batch :
+        for product in products:
+            batch.put_item(Item=product)
+
+    yield products
+
+    with table.batch_writer() as batch :
+        for product in products:
+            batch.delete_item(Key={"productId" : product["productId"]})
+
+
+
+def enrich_inventory(inventory_item):
+
+    now =  datetime.datetime.now()
+
+    id  = str(uuid.uuid4())    
+
+    inventory_item["PK"] =  "INVENTORY#{}".format(inventory_item["productId"])
+    inventory_item["SK"] =  "INVENTORY"
+    inventory_item["GSK1-PK"] =  "OFF"
+    inventory_item["GSK1-SK"] =  now.isoformat()
+    inventory_item["updatedDateTime"] =   now.isoformat()
+
+    return inventory_item
+
+
+
+@pytest.fixture(scope="module")   
+def inventories_db(products_db,get_inventory) :
+
+    inventories = [ get_inventory(p) for p in products_db ]
+    
+    table =  boto3.resource("dynamodb").Table(warehouse_table) # pylint: disable=no-member
+
+    inventories =  [enrich_inventory(i) for i in inventories]
+
+    with table.batch_writer() as batch :
+        for i in inventories:
+            batch.put_item(Item=i)
+
+    yield inventories
+
+    with table.batch_writer() as batch :
+        for i in inventories:
+            batch.delete_item(Key={"PK" :  "INVENTORY#{}".format(i["productId"]),
+                            "SK" : "INVENTORY" })
+
+
+def create_requisition(requistionId,product):
+
+    today =  datetime.date.today()
+
     return {
-                "productId" :product["productId"],
-                "name" :product["name"],
-                "category":product["category"],
-                "qty":qty,
-                "min_alert_qty" :min_alert,
-                "ship_delay_reg" :ship_delay[0][1],
-                "ship_delay_prime" :ship_delay[0][0],
-                "registory_ref_no" :"CHALLAN-{}".format(uuid.uuid4()),
-            }
+
+        "PK" : "REQUEST#{}".format(requistionId),
+        "SK" : "ITEM#{}".format(product["productId"]),
+        "GSK1-PK" :"New",
+        "GSK1-SK" :str(today),
+        "qty":product["qty"],
+    }
+
+@pytest.fixture(scope="module")   
+def requisition_db(inventories_db):
+
+    reqId  = uuid.uuid4()
+
+    table =  boto3.resource("dynamodb").Table(warehouse_table) # pylint: disable=no-member
+
+
+    records =[create_requisition(reqId, {"productId" :i["productId"],
+                                        "name" :i["name"],
+                                        "qty" :REQ_QTY} )
+                                         for i in inventories_db ]
+
+
+    records.append({
+                    "PK" :"REQUEST#{}".format(reqId) ,
+                    "SK" : "MASTER",
+                    "GSK1-PK" :"REQUEST#{}".format("CLIENT_REQ_NO_1"),
+                    "GSK1-SK" :"REQUEST#{}".format(reqId),
+                    "createdDatetime" :datetime.datetime.now().isoformat(),
+                    "status" : "New",
+                    "source" :"UNIT_TEST",
+                    "reference_no":"ORDER_123"   
+                    })
+ 
+    with table.batch_writer() as batch :
+        for r in records:
+            batch.put_item(Item=r) 
+    
+    yield records
+
+    with table.batch_writer() as batch :
+        for r in records:
+            batch.delete_item(Key={"PK" : r["PK"], "SK" :  r["SK"] })
+
+
+def get_requistion(requistionId):
+
+    table =  boto3.resource("dynamodb").Table(warehouse_table) # pylint: disable=no-member
+    response = table.query(
+      KeyConditionExpression=Key('PK').eq("REQUEST#{}".format(requistionId)))
+
+    return response["Items"]
