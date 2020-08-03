@@ -1,0 +1,29 @@
+{
+    "type": "object",
+    "required": [
+        "requestId" ,"reference_no" ,"products" 
+    ],
+    "properties": {
+      "requestId": {
+        "type": "string"
+      },
+      "reference_no": {
+        "type": "string"
+      },
+      "products" : {
+        "type" : "array",
+        "items":{
+          "type" : "object",
+          "required" :["productId","status"],
+          "properties": {
+            "productId": {
+              "type": "string"
+            },
+            "status": {
+              "type": "string"
+            }
+         }
+        }
+      }
+   }
+  }

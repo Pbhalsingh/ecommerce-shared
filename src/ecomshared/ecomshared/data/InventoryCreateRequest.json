@@ -1,0 +1,33 @@
+{
+  "type": "object",
+  "required": [
+      "productId", "name", "category", "qty" ,"min_alert_qty","ship_delay_reg","ship_delay_prime"
+  ],
+  "properties": {
+    "productId": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "category": {
+      "type": "string"
+    },
+    "qty": {
+      "type": "integer"
+    },
+    "min_alert_qty": {
+      "type": "integer"
+    },
+    "ship_delay_reg": {
+      "type": "integer"
+    },
+    "ship_delay_prime": {
+      "type": "integer"
+    },
+    "registory_ref_no" :{
+      "type":"string"
+    }
+  }
+       
+}

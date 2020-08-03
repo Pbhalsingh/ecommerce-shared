@@ -1,0 +1,17 @@
+{
+    "type": "object",
+    "required": [
+        "requestId", "productIds"],
+    "properties": {
+      "requestId": {
+        "type": "string"
+      },
+      "productIds": {
+        "type": "array",
+        "items": {
+          "type": "string"
+          }
+        }
+    }
+  
+  }

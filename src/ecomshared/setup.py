@@ -11,7 +11,8 @@ setup(
     name="ecomshared",
     packages=find_packages(),
     setup_requires=["pytest-runner"],
+    package_data={'': ['data/*.json']},
     test_suite="tests",
     tests_require=["pytest"],
-    version="0.1.4"
+    version="0.2.1"
 )

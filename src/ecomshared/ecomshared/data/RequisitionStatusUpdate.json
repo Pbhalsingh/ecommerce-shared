@@ -1,0 +1,17 @@
+{
+  "type": "object",
+  "required": ["requistionId", "productId" ,"status"],
+  "properties": {
+    "requistionId": {
+      "type": "string"
+    },
+    "productId": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum" : ["New","Inprocess","Fail","Complete"]
+    }
+  } 
+       
+}

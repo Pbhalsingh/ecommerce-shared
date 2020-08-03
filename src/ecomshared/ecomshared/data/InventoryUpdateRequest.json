@@ -1,0 +1,24 @@
+{
+  "type": "object",
+  "required": [
+      "productId" ,"transactionType" ,"reference_no" ,"qty" 
+  ],
+  "properties": {
+    "productId": {
+      "type": "string"
+    },
+    "transactionType" :{
+      "type": "string",
+      "enum" : ["CREDIT","DEBIT"]
+    },
+    "reference_no": {
+      "type": "string"
+    },
+    "qty" : {
+      "type" : "integer"
+    },
+    "description":{
+      "type" : "string"
+    }
+ }
+}

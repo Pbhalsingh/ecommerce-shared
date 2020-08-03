@@ -1,0 +1,37 @@
+{
+  "type": "object",
+  "required": [
+      "requestId", "products", "source", "reference_no"],
+  "properties": {
+    "requestId": {
+      "type": "string"
+    },
+    "source": {
+      "type": "string"
+    },
+    "reference_no": {
+      "type": "string"
+    },
+    "products": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "productId", "name", "qty"
+        ],
+        "properties": {
+            "productId": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            },
+            "qty": {
+              "type": "integer"
+          }
+        }
+      }
+    }
+  } 
+       
+}

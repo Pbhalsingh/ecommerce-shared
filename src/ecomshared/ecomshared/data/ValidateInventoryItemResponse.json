@@ -1,0 +1,45 @@
+{
+    "type": "object",
+    "required": ["requestId","productId", "requestor", "status"],
+    "properties": {
+      "PK": {
+        "type": "string"
+      },
+      "SK": {
+        "type": "string"
+      },
+      "requestId": {
+        "type": "string"
+      },
+      "productId": {
+        "type": "string"
+      },
+      "request_src": {
+        "type": "string"
+      },
+      "requestor": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      },
+      "validations": {
+        "type": "array",
+        "items": {
+            "type": "object",
+            "required": [ "type", "status"],
+            "properties": {
+              "description": {
+                "type": "string"
+              },
+              "status": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string"
+              }
+            }
+          }
+      }
+    }
+}

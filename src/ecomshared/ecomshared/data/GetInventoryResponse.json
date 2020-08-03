@@ -1,0 +1,72 @@
+{
+    "type": "object",
+    "required": [
+        "requestId", "productIds" , "requestor","inventories"],
+    "properties": {
+      "requestId": {
+        "type": "string"
+      },
+      "requestor": {
+        "type": "string"
+      },
+    "productIds": {
+        "type": "array",
+        "items": {
+          "type": "string"
+         }
+      },
+      "inventories": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "required": [
+            "productId", "name", "ship_delay_reg", "ship_delay_prime" ,"qty"
+          ],
+          "properties": {
+            "GSK1-PK": {
+              "type": "string"
+            },
+            "GSK1-SK": {
+              "type": "string"
+            },
+            "PK": {
+              "type": "string"
+            },
+            "SK": {
+              "type": "string"
+            },
+            "category": {
+              "type": "string"
+            },
+            "min_alert_qty": {
+              "type": "number"
+            },
+            "name": {
+              "type": "string"
+            },
+            "productId": {
+              "type": "string"
+            },
+            "qty": {
+              "type": "number"
+            },
+            "registory_ref_no": {
+              "type": "string"
+            },
+            "ship_delay_prime": {
+              "type": "number"
+            },
+            "ship_delay_reg": {
+              "type": "number"
+            },
+            "updatedDateTime": {
+              "type": "string"
+            }
+          }
+
+      }
+
+    } 
+         
+  }
+}

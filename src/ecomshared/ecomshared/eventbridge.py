@@ -1,16 +1,36 @@
 """
 EventBridge helpers for Lambda functions
 """
-
-
+import os
 from datetime import datetime
-import json
+import json,jsonschema
 from boto3.dynamodb.types import TypeDeserializer
 from .helpers import Encoder
 
 
+
 __all__ = ["ddb_to_event"]
 deserialize = TypeDeserializer().deserialize
+
+VALID_EVENT_TYPE = {
+    #Inventory
+    "InventoryCreateRequest" : "InventoryCreateRequest" ,
+    "InventoryUpdateRequest" :  "InventoryUpdateRequest",
+    "InventoryUpdateResponse" : "InventoryUpdateResponse",
+    "RequisitionItemRequest" : "RequisitionItemRequest",
+    "RequisitionItemRelease":"RequisitionItemRelease",
+    "RequisitionStatusUpdate" : "RequisitionStatusUpdate",
+    "ValidateInventoryItemRequest" : "ValidateInventoryItemRequest",
+    "ValidateInventoryItemResponse":"ValidateInventoryItemResponse",
+    "GetInventoryRequest":"GetInventoryRequest",
+    "GetInventoryResponse" : "GetInventoryResponse",
+
+    #Products
+    "GetProductRequest" : "GetProductRequest" ,
+    "GetProductResponse" : "GetProductResponse"
+}
+
+
 
 
 def ddb_to_event(
@@ -87,3 +107,38 @@ def ddb_to_event(
         raise ValueError("Wrong eventName value for DynamoDB event: {}".format(ddb_record["eventName"]))
 
     return event
+
+
+def create_event( type:str,
+                  detail:dict,
+                  bus_name:str,
+                  source:str) ->  dict:
+
+    
+    if type not in VALID_EVENT_TYPE :
+        raise Exception("Invalid event type {}".format(type))
+
+    validate_event(type,detail)
+  
+    """ create Event Bridge event from input """
+    event_bridge_event = {
+        "Time" : datetime.now(),
+        "Source" : "ecommerce.{}".format(source),
+        "Resources" : [],
+        "DetailType" : type,
+        "Detail" : json.dumps(detail,cls=Encoder),
+        "EventBusName" :   bus_name      
+    }
+
+    # pdb.set_trace()
+    return event_bridge_event
+
+def validate_event(eventType , detail):
+
+    SCHEMA_FILE = os.path.join(os.path.dirname(__file__),"data/{}.json".format(eventType))
+
+    with open(SCHEMA_FILE) as fs:
+        schema =  json.load(fs)
+
+    jsonschema.validate(detail,schema)
+

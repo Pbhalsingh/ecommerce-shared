@@ -214,3 +214,15 @@ def test_response_status():
     status_code = 400
     retval = apigateway.response("Message", status_code)
     assert retval["statusCode"] == status_code
+
+def test_create_event():
+
+    type = 'RequisitionItemRelease'
+    detail = {'products': [{'productId': '073a4cf7-e6dc-4385-9e77-4b2cd76fa909', 'status': 'New'}, {'productId': '50422ba5-8c92-409c-a20e-5dcb33df0538', 'status': 'Complete'}], 'reference_no': 'ORDER_123', 'requestId': 'CLIENT_REQ_NO_1'}
+    bus_name = 'ecommerce-test', 
+    source = 'warehouse.delivery'
+
+    eventbridge.create_event("RequisitionItemRelease",detail,"EVENT_BUS_NAME","warehouse.delivery")
+
+
+    
