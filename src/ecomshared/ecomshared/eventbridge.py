@@ -27,7 +27,12 @@ VALID_EVENT_TYPE = {
 
     #Products
     "GetProductRequest" : "GetProductRequest" ,
-    "GetProductResponse" : "GetProductResponse"
+    "GetProductResponse" : "GetProductResponse",
+
+    #Orders 
+    "GetOrderRequest" : "GetOrderRequest",
+    "GetOrderResponse" : "GetOrderResponse"
+
 }
 
 
