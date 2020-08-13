@@ -238,7 +238,7 @@ def get_product():
     return _get_product
 
 @pytest.fixture(scope="module")
-def get_inventory(product):
+def get_inventory(get_product):
 
     def _get_inventory(product):
 
