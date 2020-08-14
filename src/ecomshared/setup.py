@@ -14,5 +14,5 @@ setup(
     package_data={'': ['data/*.json']},
     test_suite="tests",
     tests_require=["pytest"],
-    version="0.2.3"
+    version="0.2.4"
 )
