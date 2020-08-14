@@ -1,0 +1,23 @@
+{
+    "type": "object",
+    "required": [
+        "orderId", "productIds" , "requestor", "requestId"],
+    "properties": {
+      "orderId": {
+        "type": "string"
+      },
+      "productIds": {
+        "type": "array",
+        "items": {
+          "type": "string"
+          }
+        },
+      "requestor": {
+        "type": "string"
+      },
+      "requestId": {
+        "type": "string"
+      }
+    }
+  
+  }

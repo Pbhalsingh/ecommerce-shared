@@ -31,7 +31,10 @@ VALID_EVENT_TYPE = {
 
     #Orders 
     "GetOrderRequest" : "GetOrderRequest",
-    "GetOrderResponse" : "GetOrderResponse"
+    "GetOrderResponse" : "GetOrderResponse",
+
+    #Delivery
+    "ScheduledOrderItem" : "ScheduledOrderItem"
 
 }
 
