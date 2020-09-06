@@ -23,7 +23,7 @@
             "type": "string"
         },
         "invoiceId": {
-            "type": "integer"
+            "type": "string"
         },
         "amount": {
             "type": "number"
