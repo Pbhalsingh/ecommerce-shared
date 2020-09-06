@@ -1,0 +1,96 @@
+{
+    "type": "object",
+    "required": [
+        "invoice_id",
+        "requestId",
+        "invoice_items",
+        "total_amount",
+        "tax",
+        "shipping_charges",
+        "source",
+        "packageId",
+        "orderId",
+        "shipping_address"
+    ],
+    "properties": {
+        "invoice_id": {
+            "type": "string"
+        },
+        "requestId": {
+            "type": "string"
+        },
+        "tax": {
+            "type": "number"
+        },
+        "total_amount": {
+            "type": "number"
+        },
+        "shipping_charges": {
+            "type": "number"
+        },
+        "source": {
+            "type": "string"
+        },
+        "packageId": {
+            "type": "string"
+        },
+        "orderId": {
+            "type": "string"
+        },
+        "invoice_items": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "required": [
+                    "productId",
+                    "name",
+                    "qty",
+                    "total"
+                ],
+                "properties": {
+                    "productId": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "qty": {
+                        "type": "integer"
+                    },
+                    "total": {
+                        "type": "integer"
+                    }
+                }
+            }
+        },
+        "shipping_address": {
+            "type": "object",
+            "required": [
+                "streetAddress",
+                "city",
+                "state",
+                "country"
+            ],
+            "properties": {
+                "streetAddress": {
+                    "type": "string"
+                },
+                "postCode": {
+                    "type": "string"
+                },
+                "city": {
+                    "type": "string"
+                },
+                "state": {
+                    "type": "string"
+                },
+                "country": {
+                    "type": "string"
+                },
+                "phoneNumber": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}

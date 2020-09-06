@@ -1,0 +1,36 @@
+{
+    "type": "object",
+    "required": [
+        "requestId",
+        "paymentId",
+        "invoiceId",
+        "source",
+        "confirm_number",
+        "status",
+        "amount"
+    ],
+    "properties": {
+        "requestId": {
+            "type": "string"
+        },
+        "paymentId": {
+            "type": "string"
+        },
+        "status": {
+            "type": "string"
+        },
+        "source": {
+            "type": "string"
+        },
+        "invoiceId": {
+            "type": "integer"
+        },
+        "amount": {
+            "type": "number"
+        },
+        "confirmation_number": {
+            "type": "string"
+        }
+        
+    }
+}

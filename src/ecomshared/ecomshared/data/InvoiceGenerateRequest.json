@@ -1,0 +1,83 @@
+{
+    "type": "object",
+    "required": [
+        "requestId",
+        "products",
+        "source",
+        "packageId",
+        "orderId",
+        "shipping_address"
+    ],
+    "properties": {
+        "requestId": {
+            "type": "string"
+        },
+        "source": {
+            "type": "string"
+        },
+        "packageId": {
+            "type": "string"
+        },
+        "orderId": {
+            "type": "string"
+        },
+        "delivery_price" :{
+            "type": "integer"
+        },
+        "products": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "required": [
+                    "productId",
+                    "name",
+                    "qty",
+                    "price"
+                ],
+                "properties": {
+                    "productId": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "qty": {
+                        "type": "integer"
+                    },
+                    "price": {
+                        "type": "integer"
+                      }
+                }
+            }
+        },
+        "shipping_address": {
+            "type": "object",
+            "required": [
+                "streetAddress",
+                "city",
+                "state",
+                "country"
+            ],
+            "properties": {
+                "streetAddress": {
+                    "type": "string"
+                },
+                "postCode": {
+                    "type": "string"
+                },
+                "city": {
+                    "type": "string"
+                },
+                "state": {
+                    "type": "string"
+                },
+                "country": {
+                    "type": "string"
+                },
+                "phoneNumber": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}

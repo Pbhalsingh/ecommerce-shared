@@ -1,0 +1,19 @@
+{
+    "type": "object",
+    "required": [
+        "packageId" ,"status" , "source" 
+    ],
+    "properties": {
+      "packageId": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string",
+        "enum" : ["COMPLETE","INVOICE","PAYMENT","VALIDATION","READY_FOR_DELIVERY","CANCELLED"]
+      },
+      "source": {
+        "type": "string"
+      }
+     
+   }
+  }

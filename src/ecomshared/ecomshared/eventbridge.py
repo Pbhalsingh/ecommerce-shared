@@ -34,8 +34,15 @@ VALID_EVENT_TYPE = {
     "GetOrderResponse" : "GetOrderResponse",
 
     #Delivery
-    "ScheduledOrderItem" : "ScheduledOrderItem"
+    "ScheduledOrderItem" : "ScheduledOrderItem",
+    "PackagingStatusUpdate" : "PackagingStatusUpdate",
 
+    #Invoice & Payment
+    "InvoiceGenerateRequest" : "InvoiceGenerateRequest",
+    "InvoiceGenerateResponse" : "InvoiceGenerateResponse",
+
+    "PaymentProcessRequest" : "PaymentProcessRequest",
+    "PaymentProcessResponse" : "PaymentProcessResponse"
 }
 
 

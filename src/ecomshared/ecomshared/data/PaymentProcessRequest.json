@@ -1,0 +1,81 @@
+{
+    "type": "object",
+    "required": [
+        "requestId",
+        "invoiceId",
+        "source",
+        "orderId",
+        "payment_detail",
+        "billing_address",
+        "amount"        
+    ],
+    "properties": {
+        "requestId": {
+            "type": "string"
+        },
+        "source": {
+            "type": "string"
+        },
+        "invoiceId": {
+            "type": "integer"
+        },
+        "amount": {
+            "type": "integer"
+        },
+        "orderId": {
+            "type": "string"
+        },
+        "payment_detail": {
+            "type": "object",
+            "required": [
+                "name",
+                "cardNumber",
+                "expDate",
+                "cvc"
+            ],
+            "properties": {
+            "name": {
+                "type": "string"
+              }  ,
+            "cardNumber":{
+                  "type": "integer"
+                }    ,
+            "expDate" :{
+                  "type": "string"
+                },
+            "cvc"  : {
+                  "type": "integer"
+                }
+            }
+          },
+        "billing_address": {
+            "type": "object",
+            "required": [
+                "streetAddress",
+                "city",
+                "state",
+                "country"
+            ],
+            "properties": {
+                "streetAddress": {
+                    "type": "string"
+                },
+                "postCode": {
+                    "type": "string"
+                },
+                "city": {
+                    "type": "string"
+                },
+                "state": {
+                    "type": "string"
+                },
+                "country": {
+                    "type": "string"
+                },
+                "phoneNumber": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}
