@@ -22,7 +22,7 @@
             "type": "string"
         },
         "delivery_price" :{
-            "type": "integer"
+            "type": "number"
         },
         "products": {
             "type": "array",
@@ -45,7 +45,7 @@
                         "type": "integer"
                     },
                     "price": {
-                        "type": "integer"
+                        "type": "number"
                       }
                 }
             }

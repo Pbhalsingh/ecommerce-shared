@@ -165,8 +165,8 @@ def get_order(get_product):
                 "streetAddress": "{} Test St".format(random.randint(10, 100)),
                 "postCode": str((random.randrange(10**4, 10**5))),
                 "city": "Test City",
-                "state": "Test State",
-                "country": "".join(random.choices(string.ascii_uppercase, k=2)),
+                "state": "MA",
+                "country": "US",
                 "phoneNumber": "+{}".format(random.randrange(10**9, 10**10))
             },
             "paymentDetail": {

@@ -58,7 +58,7 @@
                         "type": "integer"
                     },
                     "total": {
-                        "type": "integer"
+                        "type": "number"
                     }
                 }
             }
