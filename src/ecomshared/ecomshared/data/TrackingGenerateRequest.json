@@ -1,0 +1,50 @@
+{
+    "type": "object",
+    "required": [
+        "requestId",
+        "packageId",
+        "orderId",
+        "shipping_address"
+    ],
+    "properties": {
+        "requestId": {
+            "type": "string"
+        },
+        "packageId": {
+            "type": "string"
+        },
+        "orderId": {
+            "type": "string"
+        },
+    
+        "shipping_address": {
+            "type": "object",
+            "required": [
+                "streetAddress",
+                "city",
+                "state",
+                "country"
+            ],
+            "properties": {
+                "streetAddress": {
+                    "type": "string"
+                },
+                "postCode": {
+                    "type": "string"
+                },
+                "city": {
+                    "type": "string"
+                },
+                "state": {
+                    "type": "string"
+                },
+                "country": {
+                    "type": "string"
+                },
+                "phoneNumber": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}

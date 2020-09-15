@@ -1,0 +1,33 @@
+{
+  "type": "object",
+  "required": ["packageId", "orderId", "products", "trackingId"],
+  "properties": {
+    "packageId": {
+      "type": "string"
+    },
+    "orderId": {
+      "type": "string"
+    },
+    "trackingId": {
+      "type": "string"
+    },
+    "products": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["productId", "name", "qty"],
+        "properties": {
+          "productId": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "qty": {
+            "type": "integer"
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,28 @@
+{
+    "type": "object",
+    "required": [
+        "requestId",
+        "requestor",
+        "packageId",
+        "trackingId"
+    ],
+    "properties": {
+        "requestId": {
+            "type": "string"
+        },
+        "packageId": {
+            "type": "string"
+        },
+        "orderId": {
+            "type": "string"
+        },
+        "trackingId": {
+            "type": "string"
+        },
+        "requestor": {
+            "type": "string"
+        }
+    
+      
+    }
+}
