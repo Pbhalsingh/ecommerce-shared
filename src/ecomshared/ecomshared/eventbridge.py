@@ -42,11 +42,12 @@ VALID_EVENT_TYPE = {
     "TrackingGenerateRequest" : "TrackingGenerateRequest",
     "TrackingGenerateResponse" : "TrackingGenerateResponse",
     "PackageShipped" : "PackageShipped",
+    "UpdateOrderScheduleRequest" : "UpdateOrderScheduleRequest",
+    "UpdateOrderScheduleResponse" : "UpdateOrderScheduleResponse",
 
     #Invoice & Payment
     "InvoiceGenerateRequest" : "InvoiceGenerateRequest",
     "InvoiceGenerateResponse" : "InvoiceGenerateResponse",
-
     "PaymentProcessRequest" : "PaymentProcessRequest",
     "PaymentProcessResponse" : "PaymentProcessResponse"
 }

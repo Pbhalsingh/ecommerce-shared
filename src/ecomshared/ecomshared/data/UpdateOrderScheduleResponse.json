@@ -1,7 +1,7 @@
 {
     "type": "object",
     "required": [
-        "orderId", "productIds" , "requestor", "requestId" , "status" ,"success"],
+        "orderId", "productIds" , "requestor", "requestId" , "type" ,"success"],
     "properties": {
       "orderId": {
         "type": "string"
@@ -21,7 +21,7 @@
       "requestId": {
         "type": "string"
       },
-      "status": {
+      "type": {
         "type": "string",
         "enum" : ["order_cancel","item_cancel","order_reschedule","item_reschedule"]
       }

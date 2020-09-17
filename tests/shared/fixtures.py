@@ -17,6 +17,7 @@ from boto3.dynamodb.conditions import Key,Attr
 sqs = boto3.client("sqs")
 ssm = boto3.client("ssm")
 warehouse_table = getParameter("/ecommerce/{}/warehouse/table/name".format("test"))
+delivery_table = getParameter("/ecommerce/{}/delivery/table/name".format("test"))
 product_table = getParameter("/ecommerce/{}/products/table/name".format("test"))
 orders_table_name = getParameter("/ecommerce/{}/orders/table/name".format("test"))
 EVENT_BUS_NAME=  getParameter("/ecommerce/{}/platform/event-bus/name".format("test"))
@@ -374,3 +375,40 @@ def get_requistion(requistionId):
       KeyConditionExpression=Key('PK').eq("REQUEST#{}".format(requistionId)))
 
     return response["Items"]
+
+def schedule_record(orderId,productId,sch_date):
+    
+    return {
+
+            "PK" : "SCHEDULE#{}".format(orderId),
+            "SK" : productId,
+            "GSK1-PK" : "SCHEDULE#{}".format(sch_date),
+            "GSK1-SK" : "New",
+            "source" :"UNIT_TEST",
+            "createDate": datetime.datetime.now().isoformat(),
+            "Note" : "From Pytest fixtures"
+        }
+
+@pytest.fixture(scope="module")   
+def schedule_db(order_db) :
+
+    table =  boto3.resource("dynamodb").Table(delivery_table) # pylint: disable=no-member
+
+    end_date = datetime.datetime.now() + datetime.timedelta(days=0) 
+    sch_date = str(end_date.date())
+
+    records = [schedule_record(order_db["orderId"],p["productId"],sch_date)  
+                    for p in order_db["products"]]
+
+
+    with table.batch_writer() as batch :
+        for r in records:
+            batch.put_item(Item=r) 
+    
+    yield records
+
+    with table.batch_writer() as batch :
+        for r in records:
+            batch.delete_item(Key={"PK" : r["PK"], "SK" :  r["SK"] })
+
+

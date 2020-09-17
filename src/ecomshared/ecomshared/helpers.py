@@ -70,3 +70,7 @@ def get_source(event: dict):
         return 'is_mobile_backend'
     elif 'source' in event and 'detail-type' in event:
         return  'event-bridge'
+    elif 'eventType' in event and event['eventType'] == 'request_response':
+        return  'request_response'
+    else :
+        return 'unknown'
