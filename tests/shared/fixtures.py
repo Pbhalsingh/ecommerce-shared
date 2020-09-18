@@ -411,4 +411,70 @@ def schedule_db(order_db) :
         for r in records:
             batch.delete_item(Key={"PK" : r["PK"], "SK" :  r["SK"] })
 
+@pytest.fixture(scope="module")   
+def package_db(order_db) :
+
+    order = order_db
+    token = "UNIT_TEST_123"
+    packageId = uuid.uuid4()
+    table =  boto3.resource("dynamodb").Table(delivery_table) # pylint: disable=no-member
+
+
+    master =  {
+
+            "PK" : "PACKAGE#{}".format(packageId),
+            "SK" : "MASTER#{}".format(order["orderId"]),
+            "status" : "START"  , #START|INPROCESS|COMPLETE|INVOICE|PAYMENT|VALIDATION|READY_FOR_DELIVERY
+            "GSK1-PK" : "PACKAGE#START",
+            "GSK1-SK" : datetime.datetime.now().isoformat(),
+            "createDateTime": datetime.datetime.now().isoformat(),
+        }
+
+    item_records = [
+        {
+
+            "PK" : "PACKAGE#{}".format(packageId),
+            "SK" : "ITEM#{}".format(p["productId"]),
+            "createDateTime": datetime.datetime.now().isoformat(),
+            "status" : "SCHEDULED"  #SCHEDULED|REQUEST|RELEASE|INPROCESS|PACKED|CANCEL|RESCHEDULE
+        } for p in order["products"]
+    ]
+
+    token_record =  {
+
+            "PK" : "PACKAGE#{}".format(packageId),
+            "SK" : "ORDER_VALIDATE_TOKEN",
+            "token" : token ,
+            "createDateTime": datetime.datetime.now().isoformat(),
+            "status" : "WAIT"  #WAIT|COMPLETE
+        }
+
+    shipping_record =  {
+
+            "PK" : "PACKAGE#{}".format(packageId),
+            "SK" : "DELIVERY",
+            "shipping_address" : order_db["address"],
+            "createDateTime": datetime.datetime.now().isoformat(),
+        }
+
+    payment_record =  {
+
+            "PK" : "PACKAGE#{}".format(packageId),
+            "SK" : "PAYMENT",
+            "payment_detail" : order_db["paymentDetail"],
+            "createDateTime": datetime.datetime.now().isoformat(),
+        }
+
+    records =  [master]+ item_records +  [token_record] + [shipping_record] + [payment_record]
+
+    with table.batch_writer() as batch :
+        for r in records:
+            batch.put_item(Item=r) 
+    
+    yield records
+
+    with table.batch_writer() as batch :
+        for r in records:
+            batch.delete_item(Key={"PK" : r["PK"], "SK" :  r["SK"] })
+
 
