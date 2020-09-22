@@ -1,0 +1,76 @@
+{
+  "type": "object",
+  "required": ["packageId", "orderId", "products", "payment_detail","shipping_detail","invoice_detail","status"],
+  "properties": {
+    "packageId": {
+      "type": "string"
+    },
+    "orderId": {
+      "type": "string"
+    },
+    "trackingId": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum" : ["START","INPROCESS","COMPLETE","INVOICE","PAYMENT","VALIDATION","READY_FOR_DELIVERY","CANCELLED"]
+    },
+    "shipping_detail" :{
+      "type" : "object",
+      "properties" :{
+        "tracking_no" :{
+          "type" :"string"
+        },
+        "shipping_company" :{
+          "type" :"string"
+        }
+      }
+
+    },
+    "invoice_detail" :{
+      "type" : "object",
+      "properties" :{
+        "invoiceId" :{
+          "type" :"string"
+        }
+      }
+
+    },
+    "payment_detail" :{
+      "type" : "object",
+      "properties" :{
+        "paymentId" :{
+          "type" :"string"
+        },
+        "status" :{
+          "type" :"string" ,
+          "enum" : ["Success" ,"Failure"]
+        }
+      }
+
+    },
+
+
+    "products": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["productId", "name", "status"],
+        "properties": {
+          "productId": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "qty": {
+            "type": "integer"
+          },
+          "status": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

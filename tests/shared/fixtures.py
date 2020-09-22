@@ -436,6 +436,8 @@ def package_db(order_db) :
             "PK" : "PACKAGE#{}".format(packageId),
             "SK" : "ITEM#{}".format(p["productId"]),
             "createDateTime": datetime.datetime.now().isoformat(),
+            "name" : p["name"],
+            "quantity" : p["quantity"],
             "status" : "SCHEDULED"  #SCHEDULED|REQUEST|RELEASE|INPROCESS|PACKED|CANCEL|RESCHEDULE
         } for p in order["products"]
     ]
