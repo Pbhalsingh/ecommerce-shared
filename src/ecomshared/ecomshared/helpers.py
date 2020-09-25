@@ -72,5 +72,7 @@ def get_source(event: dict):
         return  'event-bridge'
     elif 'eventType' in event and event['eventType'] == 'request_response':
         return  'request_response'
+    elif 'eventType' in event and event['eventType'] == 'graph-ql':
+        return  'graph-ql'
     else :
         return 'unknown'
