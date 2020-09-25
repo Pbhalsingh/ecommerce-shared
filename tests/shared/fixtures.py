@@ -99,13 +99,18 @@ def enrich_order(order):
 
     now =  datetime.datetime.now()
 
+    NO_OF_PARTITIONS = 10
+
     id  = str(uuid.uuid4())
 
     order["PK"] =  id
-    order["SK"] =  "ORDER#{}".format(id)
-    order["orderId"] = id
+    order["SK"] =  "ORDER#{}".format(id)  
     order["status"] = "NEW"
     order["createdDate"] = now.isoformat()
+    order["GS2-PK"] = "STATUS#{}#{}".format(order["status"],
+                                    random.choice([i for i in range(NO_OF_PARTITIONS)]))  
+    order["GS2-SK"] =  order["createdDate"]
+    order["orderId"] = id
     order["modifiedDate"] = now.isoformat()
     order["total"] =  sum([ p["price"]*p.get("quantity",1) for p in order["products"]])
     order["NumOfItems"] = sum([ p.get("quantity",1) for p in order["products"]])
